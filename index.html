@@ -3,12 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API sprint</title>
+    <title>API IA BOUMAN</title>
+
+    <!-- Styles & Font -->
+    <link rel="stylesheet" href="./css.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ec2295b45c.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <button id="button">Tu as faim ?</button>
-    <div class="image"> </div>
+<div class=container>
+    <h1> <i class="fas fa-home"></i> What price for your place ?</h1>
+
+    <form action="" id="example-form">
+        <label for="property-type">
+            <span>Property type:</span>
+            <select id="property-type" name="property-type">
+                <option value="APARTMENT">Appartement</option>
+                <option value="HOUSE">House</option>
+                <option value="OTHERS">Other</option>
+            </select>
+        </label>
+        <br>
+
+        <label for="area">
+            Area
+            <input type="number" name="area" id="area">
+        </label>
+        <br>
     
+        <label for="rooms-number">
+            Rooms-number
+            <input type="number" name="rooms-number" id="rooms-number">
+        </label>
+        <br>
+        
+        <label for="zipcode">
+            Zip-code
+            <input type="number" name="zipcode" id="zipcode">
+        </label>
+        <br>
+
+        <label for="land-area">
+            Land-Area
+            <input type="number" name="land-area" id="land-area">
+        </label>
+        <br>
+
+        <label for="garden">
+            With Garden
+            <input type="radio" name="garden" id="garden">
+            Without Garden
+            <input type="radio" name="without" id="garden" checked>
+            
+        </label>
+        <br>
+
+        <label for="garden-area">
+            Garden-Area
+            <input type="number" name="garden-area" id="garden-area">
+        </label>
+        <br>
+
+        <label for="equipped-kitchen">
+            Equipped Kitchen
+            <input type="radio" name="equipped-kitchen" id="equipped-kitchen">
+            Non-equipped Kitchen
+            <input type="radio" name="equipped-kitchen" id="equipped-kitchen" checked>
+            
+        </label>
+        <br>
+
+        <label for="swimmingpool">
+            With Swimmingpool
+            <input type="radio" name="swimmingpool" id="swimmingpool">
+            Without Swimmingpool
+            <input type="radio" name="swimmingpool" id="swimmingpool" checked>
+            
+        </label>
+        <br>
+
+        <label for="furnished">
+            Furnished
+            <input type="radio" name="furnished" id="furnished">
+            Unfurnished
+            <input type="radio" name="furnished" id="furnished" checked>
+            
+        </label>
+        <br>
+
+        <label for="terrace">
+            With terrace
+            <input type="radio" name="terrace" id="terrace">
+            Without terrace
+            <input type="radio" name="terrace" id="terrace" checked>
+            
+        </label>
+        <br>
+
+        <label for="terrace-area">
+            Garden-Area
+            <input type="number" name="terrace-area" id="terrace-area">
+        </label>
+        <br>
+
+        
+
+        <input type="submit" value="Evaluate" id="submitbouton">
+    </form>
+    <br>
+
+
+    <h1> <i class="fas fa-igloo"></i> The price is : </h1>
+    <div id="price"></div>
+    <br>
+</div>   
+
 </body>
-<script src="index.js"></script>
+<script>
+
+document.querySelector("#submitbouton").addEventListener("click", function(event){
+    event.preventDefault();
+    data = {
+        "data":{
+            "property-type": document.getElementById('property-type').value,
+            "area": new Number(document.getElementById('area').value),
+            "rooms-number": new Number(document.getElementById('rooms-number').value),
+            "zip-code": new Number(document.getElementById('zipcode').value),    
+        }
+    }
+
+    let area = new Number(document.getElementById('area').value)
+
+
+const formatter = new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  })
+
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const url = "https://cnos.herokuapp.com/predict"; 
+fetch(proxyurl + url,
+{method: 'POST',
+body: JSON.stringify(data),
+headears:{
+    'Content-type': 'application/json'}
+})
+    .then(response => response.json())
+    .then(contents => {
+      console.log(contents);
+      let propertyValue = contents.prediction.slice(22, -3)
+      console.log(propertyValue);
+      document.getElementById('price').innerHTML=formatter(propertyValue);
+      
+   })
+.catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+})
+
+
+
+</script>
 </html> 
+
+

@@ -1,0 +1,25 @@
+.container {
+    background:white;
+    text-align:center;
+    padding: 2px;
+    font-family: 'Roboto', sans-serif;
+    height: auto;
+    width: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    margin-right: 25%;
+    margin-left: 25%;
+    padding:3px;
+    line-height:2.5;
+    border: 1px solid grey;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px lightgrey;
+}
+
+body{
+background-image: url("/Users/evamarechal/Desktop/BECODE/APIwBouman/images/field-5159899.jpg");
+}
+
+.input {
+    background: 'grey';
+}
